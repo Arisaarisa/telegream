@@ -13,6 +13,6 @@
   private
 
   def post_params # ストロングパラメータを定義する
-    params.require(:post).permit(:caption)
+    params.require(:post).permit(:caption, :image)
   end
   end

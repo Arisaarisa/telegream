@@ -13,7 +13,9 @@ class Post < ApplicationRecord
         errors.add(:new_image, 'にはjpegまたはpngファイルを添付してください')
       end
     else
-      errors.add(:new_image, 'ファイルを添付してください')
+      if !image.attached?
+        errors.add(:new_image, 'ファイルを添付してください')
+      end
     end
   end
 

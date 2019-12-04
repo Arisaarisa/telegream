@@ -14,5 +14,12 @@
   </a>
   <div class="card-text">
     <p><%= truncate(post.caption, length: 90) %></p>
+
+    <%= form_with url: comments_path, model: @comment, class: "form-group row mx-auto ", local: true do |f| %>
+      <%= f.hidden_field :post_id, value: post.id %>
+      <%= f.text_field :body, class: "col-9 form-control" %>
+      <%= f.submit class: "col-3" %>
+    <% end %>
+    
   </div>
 </div>

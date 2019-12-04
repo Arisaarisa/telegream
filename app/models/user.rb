@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one_attached :avatar
   has_many :posts
+  has_many :comments
   attribute :new_avatar
   validates :name,          presence: true,   length: { maximum: 50 }
   validates :username,      presence: true,   length: { maximum: 50 }

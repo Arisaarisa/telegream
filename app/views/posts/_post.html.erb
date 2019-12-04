@@ -1,7 +1,12 @@
 <div class="card mb-5">
+  <div class="card-header bg-transparent">
+    <%= image_tag post.user.avatar.variant(combine_options: { resize: "32x32^", crop: "32x32+0+0", gravity: :center }).processed, class: "img-fluid rounded-circle" %>
+    <%= post.user.name %>
+  </div>
+
   <a href="<%= post_path(post) %>">
     <!-- mini_magickのメソッドを使用して画像サイズを変更して表示 -->
-    <% if post.image.attached? %>
+  <% if post.image.attached? %>
       <%= image_tag post.image.variant(combine_options: { resize: "800x800^", crop: "800x800+0+0", gravity: :center }).processed, class: "card-img" %>
     <% else %>
       <%= image_tag "no_image", class: "card-img" %>

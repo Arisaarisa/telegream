@@ -1,4 +1,4 @@
-  class CommentsController < ApplicationController
+class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.attributes = {
@@ -18,4 +18,4 @@
     params.require(:comment).permit(:body, :post_id)
   end
 
-  end
+end

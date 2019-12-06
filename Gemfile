@@ -43,7 +43,7 @@ gem 'mini_magick'
 gem 'devise'
 gem 'rails-i18n'
 gem 'devise-i18n'
-
+gem 'rails_admin'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,6 +51,8 @@ group :development, :test do
 
   gem 'faker'
   gem 'seed-fu', '~> 2.3'
+  gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :development do
@@ -60,6 +62,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'annotate'
 end
 
 group :test do

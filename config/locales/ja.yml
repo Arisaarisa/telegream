@@ -2,7 +2,7 @@ ja:
   activerecord:
     attributes:
       comment:
-        comment: コメント
+        body: コメント
       post:
         caption: 説明
         image: 投稿画像

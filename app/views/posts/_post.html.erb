@@ -14,11 +14,23 @@
   </a>
   <div class="card-text">
     <p><%= truncate(post.caption, length: 90) %></p>
+    <hr>
 
-    <%= form_with url: comments_path, model: @comment, class: "form-group row mx-auto ", local: true do |f| %>
+    <% post.comments.last(3).each_with_index do |comment, index| %>
+      <p>
+        <%= image_tag comment.user.avatar.variant(combine_options: { resize: "20x20^", crop: "20x20+0+0", gravity: :center }).processed, class: "img-fluid rounded-circle" %>
+        <%= comment.user.name %>
+        <%= truncate(comment.body, length: 90) %>
+        <% if current_user.id == comment.user.id %>
+          <%= link_to t(".delete"), comment_path(comment), method: :delete, data: {confirm: '削除してよろしいですか？'} %>
+        <% end %>
+      </p>
+    <% end %>
+
+    <%= form_with model: @comment, url: comments_path, class: "form-group row mx-auto ", local: true do |f| %>
       <%= f.hidden_field :post_id, value: post.id %>
-      <%= f.text_field :body, class: "col-9 form-control" %>
-      <%= f.submit class: "col-3" %>
+      <%= f.text_field :body, class: "col-8 form-control" %>
+      <%= f.submit t(".submit"), class: "col-4" %>
     <% end %>
   </div>
 </div>

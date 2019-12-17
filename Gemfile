@@ -44,6 +44,8 @@ gem 'devise'
 gem 'rails-i18n'
 gem 'devise-i18n'
 gem 'rails_admin'
+gem 'rails_admin-i18n'
+gem 'devise-bootstrap-views', '~> 1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

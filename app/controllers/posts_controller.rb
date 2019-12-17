@@ -14,7 +14,9 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params) # ストロングパラメータを引数に
-    @post.save # saveをしてデータベースに保存する。
+        @post.attributes = {
+      user_id: current_user.id
+    }
     if @post.save
       redirect_to @post, notice: "投稿を登録しました。"
     else
@@ -23,6 +25,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
   end
 
   def edit

@@ -22,7 +22,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one_attached :avatar
   has_many :posts
-  has_many :comments
+  has_many :comments, dependent: :destroy
   attribute :new_avatar
   validates :name,          presence: true,   length: { maximum: 50 }
   validates :username,      presence: true,   length: { maximum: 50 }
@@ -31,11 +31,11 @@ class User < ApplicationRecord
 
   def new_avatar_check
     if new_avatar.present?
-      if !new_avatar.content_type.in?(%(image/jpeg image/png))
+      unless new_avatar.content_type.in?(%(image/jpeg image/png))
         errors.add(:new_avatar, 'にはjpegまたはpngファイルを添付してください')
       end
     else
-      if avatar.present?
+      unless avatar.attached?
         errors.add(:new_avatar, 'ファイルを添付してください')
       end
     end

@@ -3,7 +3,6 @@ class PostsController < ApplicationController
   before_action :set_post, only: [ :edit, :update, :destroy]
 
   def index
-    @posts = Post.with_attached_image.order(created_at: :desc).page(params[:page]).per(5).includes(comments: {user: :avatar_attachment}, user: {avatar_attachment: :blob})
     @comment = Comment.new
   end
 

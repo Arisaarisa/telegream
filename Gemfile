@@ -45,6 +45,7 @@ gem 'rails-i18n'
 gem 'devise-i18n'
 gem 'rails_admin'
 gem 'rails_admin-i18n'
+gem 'kaminari'
 gem 'devise-bootstrap-views', '~> 1.0'
 
 group :development, :test do

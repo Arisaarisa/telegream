@@ -12,11 +12,8 @@ class PostsController < ApplicationController
     @post = Post.new # フォーム用の空のインスタンスを生成する。
   end
 
-  def create
-    @post = Post.new(post_params) # ストロングパラメータを引数に
-        @post.attributes = {
-      user_id: current_user.id
-    }
+  def create# ストロングパラメータを引数に
+    @post = current_user.posts.new(post_params)
     if @post.save
       redirect_to @post, notice: "投稿を登録しました。"
     else

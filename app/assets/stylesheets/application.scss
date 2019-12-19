@@ -30,3 +30,21 @@
   overflow: scroll;
   max-height: 435px;
 }
+
+.user-box {
+  padding: 30px;
+  border: 1px solid #dcdcdc;
+  background-color: #f8f8ff;
+}
+
+.like {
+  color: red;
+  text-decoration: none;
+  display: inline;
+}
+
+.unlike {
+  color: gray;
+  text-decoration: none;
+  display: inline;
+}

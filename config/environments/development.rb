@@ -67,4 +67,9 @@ Rails.application.configure do
     Bullet.add_whitelist type: :n_plus_one_query,         class_name: 'Post',     association: :user
     Bullet.add_whitelist type: :n_plus_one_query,         class_name: 'Comment',  association: :user
   end
+
+
+  if Rails.env.development?
+    BetterErrors::Middleware.allow_ip! "0.0.0.0/0"
+  end
 end

@@ -2,14 +2,14 @@
 Faker::Config.locale = :ja
 
 unless Rails.env.production?
-  # 50件のデータを用意する
-  POST_MAX = 50
+  # 200件のデータを用意する
+  POST_MAX = 200
   post_attrs = Proc.new do
     Array.new(POST_MAX) do |idx|
-      { id: idx + 1,
+      { id: idx 1,
         # Fakerを使って文言を用意
         caption: Faker::Lorem.paragraph,
-        user_id: Random.rand(1..(User.count))
+        user_id: User.pluck(:id).sample
       }
     end
   end

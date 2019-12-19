@@ -1,6 +1,10 @@
 class CommentsController < ApplicationController
   def create
+    # binding.pry
     @comment = Comment.new(comment_params)
+          @comment.attributes = {
+      user_id: current_user.id
+    }
     if @comment.save
       redirect_to posts_path, notice: "コメントを保存しました。"
     else

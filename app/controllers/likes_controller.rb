@@ -1,4 +1,5 @@
 class LikesController < ApplicationController
+  before_action :set_post
   def like
     like = Like.new
     like.post_id = params[:post_id]
@@ -11,5 +12,11 @@ class LikesController < ApplicationController
     like = Like.find_by(post_id: params[:post_id], user_id: current_user.id)
     like.destroy
     redirect_to posts_path
+  end
+
+  private
+
+  def set_post
+    @post = Post.find(params[:post_id])
   end
 end

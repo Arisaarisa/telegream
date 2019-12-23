@@ -1,6 +1,5 @@
 <%= form_with model: post, local:true do |f| %>
   <%= render "shared/errors", obj: post %>
-  <%= f.hidden_field :user_id, value: current_user.id %>
   <div class="form-group">
     <%= f.label :new_image %>
     <%= f.file_field :new_image, class: "form-control"  %>

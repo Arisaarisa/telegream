@@ -1,0 +1,46 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id          :bigint           not null, primary key
+#  caption     :text(65535)      not null
+#  user_id     :bigint
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  likes_count :integer
+#
+
+class Post < ApplicationRecord
+  # モデル毎に表示する数が決まっている場合は定数にすることもできる
+  paginates_per 5
+
+  has_one_attached :image
+  belongs_to :user
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  attribute :new_image
+  validates :caption, presence: true
+  validate :new_image_check
+
+
+  def new_image_check
+    ##### 中身を確認 #####
+    if new_image.present?
+      ##### ファイルの種類をチェック #####
+      unless new_image.content_type.in?(%w(image/jpeg image/png))
+        errors.add(:new_image, 'にはjpegまたはpngファイルを添付してください')
+      end
+    else
+      unless image.attached?
+        errors.add(:new_image, 'ファイルを添付してください')
+      end
+    end
+  end
+
+  before_save do
+    self.image = new_image if new_image
+  end
+
+  scope :find_newest_post, -> (page) { with_attached_image.order(created_at: :desc).page(page) }
+  scope :with_user_and_comment, -> { includes(:comments, user: {avatar_attachment: :blob}, comments: :user) }
+end

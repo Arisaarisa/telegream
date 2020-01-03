@@ -29,6 +29,7 @@ services:
     # データの保存場所を設定
     volumes:
       - "mysql-data:/var/lib/mysql"
+      - .:${WORK_DIR}:cached
     # mysqlのパスワードの暗号化をRailsで参照出来る形式に変更
     ports:
       - 3306:3306

@@ -1,0 +1,47 @@
+<div class="col-lg-10 mx-auto">
+  <div class="card">
+    <div class="row no-gutters">
+      <div class="col-lg-8">
+        <% if @post.image.attached? %>
+          <%= image_tag @post.image.variant(combine_options: { resize: "800x800^", crop: "800x800+0+0", gravity: :center }).processed, class: "card-img" %>
+        <% else %>
+          <%= image_tag "no_image", class: "card-img" %>
+        <% end %>
+      </div>
+      <div class="col-lg-4">
+        <div class="card-body">
+          <%= image_tag @post.user.avatar.variant(combine_options:{ resize: "32x32^", crop: "32x32+0+0", gravity: :center }).processed, class: "img-thumbnail rounded-circle" %>
+          <%= @post.user.name %>
+          <hr>
+          <div class="scroll">
+            <% @post.comments.each do |comment| %>
+              <p>
+                <%= image_tag comment.user.avatar.variant(combine_options: { resize: "20x20^", crop: "20x20+0+0", gravity: :center }).processed, class: "img-fluid rounded-circle" %>
+                <%= comment.user.name %>
+                <%= comment.body %>
+              </p>
+            <% end %>
+          </div>
+
+          <%= form_with model: @comment, url: comments_path, class: "row mx-auto ", local: true do |f| %>
+            <%= f.hidden_field :post_id, value: @post.id %>
+            <%= f.text_field :body, class: "col-8 form-control" %>
+            <%= f.submit t(".submit"), class: "col-4" %>
+          <% end %>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if user_signed_in? && current_user.id == @post.user_id %>
+    <p>
+      <%= link_to t(".edit"), edit_post_path(@post), method: :get, class: "btn btn-block btn-primary" %>
+    </p>
+    <p>
+      <%= button_tag t(".delete"), class: "btn btn-block btn-warning", data: { toggle: "modal", target: "#delete-post" } %>
+    </p>
+  <% end %>
+</div>  
+
+
+<%= render "delete_modal" , post: @post %>
